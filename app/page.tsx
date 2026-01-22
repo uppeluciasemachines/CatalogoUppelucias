@@ -95,7 +95,6 @@ export default function Home() {
             </InputGroup>
           </div>
 
-          {/* Filtro */}
           <div className="w-full md:w-1/3">
             <Select onValueChange={(value) => setCategory(value)}>
               <SelectTrigger className="w-full">
