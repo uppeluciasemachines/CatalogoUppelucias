@@ -22,16 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        className={cn(
-          "min-h-screen antialiased ",
-          poppins.className,
-        )}
-      >
-        <CartProvider>
-
-        {children}
-        </CartProvider>
+      <body className={cn("min-h-screen antialiased ", poppins.className)}>
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );
