@@ -28,6 +28,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/cart-context";
@@ -139,11 +141,13 @@ export default function Home() {
                 const parsed: unknown = JSON.parse(produto.image);
 
                 if (Array.isArray(parsed)) {
-                  return parsed.filter(
-                    (img): img is string =>
-                      typeof img === "string" &&
-                      (img.startsWith("http") || img.startsWith("/")),
-                  );
+                  return parsed
+                    .filter(
+                      (img): img is string =>
+                        typeof img === "string" &&
+                        (img.startsWith("http") || img.startsWith("/")),
+                    )
+                    .slice(1);
                 }
               } catch (error) {
                 console.error("Erro ao parsear imagens:", produto.image, error);
@@ -162,21 +166,37 @@ export default function Home() {
 
                 <CardContent className="space-y-2">
                   {imagensValidas.length > 0 && (
-                    <Carousel className="w-full">
+                    <Carousel className="w-full relative">
                       <CarouselContent>
                         {imagensValidas.map((img, index) => (
                           <CarouselItem key={index}>
                             <Image
                               src={img}
                               alt={produto.name ?? "Produto"}
-                              width={400}
-                              height={300}
-                              className="w-full h-28 sm:h-36 md:h-40 object-cover rounded-md"
+                              width={200}
+                              height={100}
+                              className="w-full h-[30vh] object-cover rounded-lg"
                               loading="lazy"
                             />
                           </CarouselItem>
                         ))}
                       </CarouselContent>
+
+                      <CarouselPrevious
+                        className="
+          absolute left-2 top-1/2 -translate-y-1/2
+          z-10 bg-background/70 backdrop-blur
+          hover:bg-background
+        "
+                      />
+
+                      <CarouselNext
+                        className="
+          absolute right-2 top-1/2 -translate-y-1/2
+          z-10 bg-background/70 backdrop-blur
+          hover:bg-background
+        "
+                      />
                     </Carousel>
                   )}
 
